@@ -71,50 +71,23 @@ int main() {
         }
         //printf("%d\n",keyInput);
         if (direction == right && x < 19){
-            //board[y][x+1] = snake;
+            board[y][x+1] = snake;
             x++; 
         }
         if (direction == left && x > 0){
-            //board[y][x-1] = snake;
+            board[y][x-1] = snake;
             x--; 
         }
         if (direction == down && y < 19 ){
-            //board[y+1][x] = snake;
+            board[y+1][x] = snake;
             y++; 
         }
         if (direction == up && y > 0){
-            //board[y-1][x] = snake;
+            board[y-1][x] = snake;
             y--; 
         }
-        printf("test\n");
-
-        
-        if(board[x][y] == food){
-            printf("chomp\n");
-            board[x][y] = snake;
-        }else{
-            /*
-            board[y][x] = snake;
-            board[startY][startX] = empty;
-            startX = x;
-            startY = y;
-            */
-            // add new x and y to snake_poeps
-                //shift everything to the right
-                
-                for(int i = sizeof(snake_poses)-1/*max len*/; i > 0; i--){
-                    
-                    snake_poses[i-1][0] = snake_poses[i][0];
-                    snake_poses[i-1][1] = snake_poses[i][1];
-                }
-                
-                // add to index 0
-            // clear out old end 
-            //set new x and y start / end
-        }
-       
-
     }
-        
-       
+        //move the player
+        //check for input
+        //reload screen
 }
