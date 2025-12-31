@@ -63,23 +63,27 @@ int main() {
         }
         //printf("%d\n",keyInput);
         if (direction == right && x < 19){
-            board[y][x+1] = snake;
+            //board[y][x+1] = snake;
             x++; 
         }
         if (direction == left && x > 0){
-            board[y][x-1] = snake;
+            //board[y][x-1] = snake;
             x--; 
         }
         if (direction == down && y < 19 ){
-            board[y+1][x] = snake;
+            //board[y+1][x] = snake;
             y++; 
         }
         if (direction == up && y > 0){
-            board[y-1][x] = snake;
+            //board[y-1][x] = snake;
             y--; 
         }
+        board[y][x] = snake;
+        board[startY][startX] = empty;
+        startX = x;
+        startY = y;
+
     }
-        //move the player
-        //check for input
-        //reload screen
+        
+       
 }
