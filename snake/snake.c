@@ -23,10 +23,15 @@ void render(char board[20][20]){
     printf("\n");
 }
 
+
+
 int main() {
     // make the board
     int x = 10;// todo use
     int y = 1;
+    int foodX = 10;
+    int foodY = 10;
+    int snake_poses[20*30][2] = {{y,x}};
     char board[20][20];
 
     enum place_states{ empty, snake, food};
@@ -49,14 +54,17 @@ int main() {
     
     // add the player to the board
     board[y][x] = snake;
-    int startX = x;
-    int startY = y;
+    int startX = snake_poses[0][1];
+    int startY = snake_poses[0][0];
+  
 
     // add the food 
-    board[0][10] = food;
+    board[foodX][foodY] = food;
     int a = 0;
     while(1) {
+        
         render(board);
+        
         if((keyInput = getchar())){
             direction = keyInput;
             //printf("%d\n", keyInput);
@@ -78,10 +86,33 @@ int main() {
             //board[y-1][x] = snake;
             y--; 
         }
-        board[y][x] = snake;
-        board[startY][startX] = empty;
-        startX = x;
-        startY = y;
+        printf("test\n");
+
+        
+        if(board[x][y] == food){
+            printf("chomp\n");
+            board[x][y] = snake;
+        }else{
+            /*
+            board[y][x] = snake;
+            board[startY][startX] = empty;
+            startX = x;
+            startY = y;
+            */
+            // add new x and y to snake_poeps
+                //shift everything to the right
+                
+                for(int i = sizeof(snake_poses)-1/*max len*/; i > 0; i--){
+                    
+                    snake_poses[i-1][0] = snake_poses[i][0];
+                    snake_poses[i-1][1] = snake_poses[i][1];
+                }
+                
+                // add to index 0
+            // clear out old end 
+            //set new x and y start / end
+        }
+       
 
     }
         
