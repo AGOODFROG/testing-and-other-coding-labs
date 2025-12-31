@@ -23,15 +23,10 @@ void render(char board[20][20]){
     printf("\n");
 }
 
-
-
 int main() {
     // make the board
     int x = 10;// todo use
     int y = 1;
-    int foodX = 10;
-    int foodY = 10;
-    int snake_poses[20*30][2] = {{y,x}};
     char board[20][20];
 
     enum place_states{ empty, snake, food};
@@ -54,17 +49,14 @@ int main() {
     
     // add the player to the board
     board[y][x] = snake;
-    int startX = snake_poses[0][1];
-    int startY = snake_poses[0][0];
-  
+    int startX = x;
+    int startY = y;
 
     // add the food 
-    board[foodX][foodY] = food;
+    board[0][10] = food;
     int a = 0;
     while(1) {
-        
         render(board);
-        
         if((keyInput = getchar())){
             direction = keyInput;
             //printf("%d\n", keyInput);
@@ -86,8 +78,13 @@ int main() {
             board[y-1][x] = snake;
             y--; 
         }
+        board[y][x] = snake;
+        board[startY][startX] = empty;
+        startX = x;
+        startY = y;
+
     }
         //move the player
         //check for input
-        //reload screen
+        //reload screeng
 }
