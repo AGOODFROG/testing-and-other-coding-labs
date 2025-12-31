@@ -86,35 +86,8 @@ int main() {
             board[y-1][x] = snake;
             y--; 
         }
-       printf("%d\n", x);
-       printf("%d\n",y);
-        if(foodX == x && foodY == y){
-            printf("chomp\n");
-            endX = snake;
-            endY = snake;
-             for(int i = sizeof(snake_pos)/(sizeof(snake_pos[0])) - 1; i > 0; i--){
-                snake_pos[i][0] = snake_pos[i-1][0];
-                snake_pos[i][1] = snake_pos[i-1][1];
-            }
-                
-            snake_pos[0][0] = foodX;
-            snake_pos[0][1] = foodY;
-             
-        
-        }else{
-            board[y][x] = snake;
-            board[endY][endX] = empty;
-            snake_pos[0][0] = x;
-            snake_pos[0][1] = y;
-            endX = snake_pos[sankeSize-1][0];
-            endY = snake_pos[sankeSize-1][1];  
-        }
-        for(int i = 0; i < 20; i++){
-                printf("{%d %d}\n", snake_pos[i][0], snake_pos[i][1]);
-            }
-
     }
         //move the player
         //check for input
-        //reload screeng
+        //reload screen
 }
