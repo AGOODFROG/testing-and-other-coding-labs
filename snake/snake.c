@@ -22,6 +22,10 @@ void render(char board[20][20]){
     printf("\n");
 }
 
+void move(){
+    
+}
+
 
 
 int main() {
@@ -30,6 +34,8 @@ int main() {
     int y = 1;
     int foodX = 10;
     int foodY = 10;
+    int endX = x;
+    int endY = y;
     
     char board[20][20];
     int sankeSize = 1;
@@ -56,9 +62,6 @@ int main() {
     // add the player to the board
     snake_pos[0][0] = 0;
     snake_pos[0][1] = 10;
-    int endX = x;
-    int endY = y;
-    
 
     // add the food 
     board[foodX][foodY] = food;
@@ -70,21 +73,19 @@ int main() {
             //printf("%d\n", keyInput);
         }
         //printf("%d\n",keyInput);
-        if (direction == right && x < 19){
-            board[y][x+1] = snake;
-            x++; 
-        }
-        if (direction == left && x > 0){
-            board[y][x-1] = snake;
-            x--; 
-        }
-        if (direction == down && y < 19 ){
-            board[y+1][x] = snake;
-            y++; 
-        }
-        if (direction == up && y > 0){
-            board[y-1][x] = snake;
-            y--; 
+        if (direction == right && x < 19){ x++;}
+        if (direction == left && x > 0){ x--; }
+        if (direction == down && y < 19 ){ y++;}
+        if (direction == up && y > 0){ y--; }
+        
+        if(board[x][y] == food){
+           printf("chome\n");
+
+        }else{
+            board[y][x] = snake;
+            board[endY][endX] = empty;
+            endX = x;
+            endY = y;
         }
     }
         //move the player
