@@ -7,8 +7,7 @@ void make(char board[20][20]){
     for(int i = 0; i < sizeof(board[0]); i++){
         for(int j = 0; j < sizeof(board[i]);j++){
             board[i][j] = 0;
-        }
-        
+        }  
     }
 }
 
@@ -23,11 +22,18 @@ void render(char board[20][20]){
     printf("\n");
 }
 
+
+
 int main() {
     // make the board
     int x = 10;// todo use
     int y = 1;
+    int foodX = 10;
+    int foodY = 10;
+    
     char board[20][20];
+    int sankeSize = 1;
+    int snake_pos[(20*20)+1][2];
 
     enum place_states{ empty, snake, food};
     enum directions{left=68, right=67, up=65, down=66};
@@ -48,12 +54,14 @@ int main() {
     printf("\n");
     
     // add the player to the board
-    board[y][x] = snake;
-    int startX = x;
-    int startY = y;
+    snake_pos[0][0] = 0;
+    snake_pos[0][1] = 10;
+    int endX = x;
+    int endY = y;
+    
 
     // add the food 
-    board[0][10] = food;
+    board[foodX][foodY] = food;
     int a = 0;
     while(1) {
         render(board);
@@ -78,10 +86,32 @@ int main() {
             board[y-1][x] = snake;
             y--; 
         }
-        board[y][x] = snake;
-        board[startY][startX] = empty;
-        startX = x;
-        startY = y;
+       printf("%d\n", x);
+       printf("%d\n",y);
+        if(foodX == x && foodY == y){
+            printf("chomp\n");
+            endX = snake;
+            endY = snake;
+             for(int i = sizeof(snake_pos)/(sizeof(snake_pos[0])) - 1; i > 0; i--){
+                snake_pos[i][0] = snake_pos[i-1][0];
+                snake_pos[i][1] = snake_pos[i-1][1];
+            }
+                
+            snake_pos[0][0] = foodX;
+            snake_pos[0][1] = foodY;
+             
+        
+        }else{
+            board[y][x] = snake;
+            board[endY][endX] = empty;
+            snake_pos[0][0] = x;
+            snake_pos[0][1] = y;
+            endX = snake_pos[sankeSize-1][0];
+            endY = snake_pos[sankeSize-1][1];  
+        }
+        for(int i = 0; i < 20; i++){
+                printf("{%d %d}\n", snake_pos[i][0], snake_pos[i][1]);
+            }
 
     }
         //move the player
