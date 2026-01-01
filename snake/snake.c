@@ -78,10 +78,13 @@ int main() {
         if (direction == down && y < 19 ){ y++;}
         if (direction == up && y > 0){ y--; }
         
-        if(board[x][y] == food){
+        printf("%d %d\n", x, y );
+        if(board[y][x] == food){
            printf("chome\n");
+           board[y][x] == snake;
 
         }else{
+            printf("not chomp");
             board[y][x] = snake;
             board[endY][endX] = empty;
             endX = x;
