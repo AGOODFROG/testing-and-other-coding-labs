@@ -47,21 +47,28 @@ class Game:
         while True:
             self.draw()
             keyPressed = input()
+            eating = False
             startX= self.snake_pos[0][0]
             startY= self.snake_pos[0][1]
             time.sleep(1)
+            print(self.foodPos, self.snake_pos)
             if(self.snake_pos[0] == self.foodPos):
                 print("chomps")
+                eating = True
+                self.foodPos = self.addFood()
+                
+
             if(keyPressed == "w" and startX > 0):
                 self.addPos(startX,startY-1)
-            if(keyPressed == "s" and startX < len(self.board)):
+            elif(keyPressed == "s" and startX < len(self.board)):
                 self.addPos(startX,startY+1)
-            if(keyPressed == "a" and startY > 0):
+            elif(keyPressed == "a" and startY > 0):
                 self.addPos(startX-1,startY)
-            if(keyPressed == "d" and startY < len(self.board)):
+            elif(keyPressed == "d" and startY < len(self.board)):
                 self.addPos(startX+1,startY)
-            #print(self.snake_pos[-1])
-            self.removeEnd()
+
+            if not eating:
+                self.removeEnd()
 
             
            
