@@ -22,9 +22,7 @@ void render(char board[20][20]){
     printf("\n");
 }
 
-void move(){
-    
-}
+
 
 
 
@@ -36,15 +34,17 @@ int main() {
     int foodY = 10;
     int endX = x;
     int endY = y;
-    
-    char board[20][20];
+    int isTurning = 0;
     int sankeSize = 1;
-    int snake_pos[(20*20)+1][2];
-
     enum place_states{ empty, snake, food};
     enum directions{left=68, right=67, up=65, down=66};
     int direction = left;
-    int inputWindow = 500; //iterations of a loop
+    int prevDirection;
+    int keyInput;
+    
+    char board[20][20];
+   
+    int snake_pos[(20*20)+1][2];
 
     struct termios info;
     tcgetattr(0, &info);
@@ -53,7 +53,6 @@ int main() {
     info.c_cc[VTIME] = 0;        
     tcsetattr(0, TCSANOW, &info);
 
-    int keyInput;
 
     //printf("%ld", sizeof(board[0]));
     make(board);
@@ -68,27 +67,64 @@ int main() {
     int a = 0;
     while(1) {
         render(board);
-        if((keyInput = getchar())){
+        isTurning = 0;
+         if((keyInput = getchar())){
+            prevDirection = direction;
             direction = keyInput;
-            //printf("%d\n", keyInput);
+            while(a < 1000){
+                a++;
+            }
+            a=0;
+            if(prevDirection =! direction){
+                isTurning = 1;
+            }
+            
         }
-        //printf("%d\n",keyInput);
-        if (direction == right && x < 19){ x++;}
-        if (direction == left && x > 0){ x--; }
-        if (direction == down && y < 19 ){ y++;}
-        if (direction == up && y > 0){ y--; }
-        
+        if(!isTurning){
+            if (direction == right && x < 19){ x++;}
+            if (direction == left && x > 0){ x--; }
+            if (direction == down && y < 19 ){ y++;}
+            if (direction == up && y > 0){ y--; }
+        }
+
         printf("%d %d\n", x, y );
         if(board[y][x] == food){
-           printf("chome\n");
-           board[y][x] == snake;
-
-        }else{
-            printf("not chomp");
+            printf("chump");
+            board[endY][endX] = snake;
             board[y][x] = snake;
+            sankeSize++;
+        }else{
             board[endY][endX] = empty;
             endX = x;
             endY = y;
+            if(sankeSize > 1){
+                printf("%d %d\n", endX,endY);
+                if (direction == right){ 
+                    x = x++;
+                    board[endY][endX-sankeSize+1] = snake;
+                    board[y][endX-sankeSize-1] = empty;
+                }
+                if (direction == left){ 
+                    x = x--;
+                    board[endY][endX+sankeSize-1] = snake;
+                    board[y][endX+sankeSize+1] = empty;
+                 }
+                if (direction == down){ 
+                     y= y++;
+                    board[endY-sankeSize+1][endX] = snake;
+                    board[endY-sankeSize+1][endX] = empty;
+                }
+                if (direction == up){
+                    y = y--;
+                    board[endY+sankeSize-1][endX] = snake;
+                    board[endY+sankeSize+1][endX] = empty;     
+                }
+                board[y][x] = snake;
+                
+            }else{
+                board[y][x] = snake;//good
+            }
+            
         }
     }
         //move the player
