@@ -26,6 +26,8 @@ void render(char board[20][20]){
 
 
 
+
+
 int main() {
     // make the board
     int x = 10;// todo use
@@ -44,7 +46,8 @@ int main() {
     
     char board[20][20];
    
-    int snake_pos[(20*20)+1][2];
+    int snake_posX[20*20];
+    int snake_posY[20*20];
 
     struct termios info;
     tcgetattr(0, &info);
@@ -59,8 +62,6 @@ int main() {
     printf("\n");
     
     // add the player to the board
-    snake_pos[0][0] = 0;
-    snake_pos[0][1] = 10;
 
     // add the food 
     board[foodX][foodY] = food;
@@ -110,9 +111,9 @@ int main() {
                     board[y][endX+sankeSize+1] = empty;
                  }
                 if (direction == down){ 
-                     y= y++;
-                    board[endY-sankeSize+1][endX] = snake;
-                    board[endY-sankeSize+1][endX] = empty;
+                    y = y--;
+                    board[endY+sankeSize-1][endX] = snake;
+                    board[endY+sankeSize+1][endX] = empty;     
                 }
                 if (direction == up){
                     y = y--;
