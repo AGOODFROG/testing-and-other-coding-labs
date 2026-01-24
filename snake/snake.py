@@ -7,7 +7,7 @@ class Game:
         self.board = []
         self.prevSnakeSize = 1
         self.size = 10
-       
+        #make the borad
         for i in range(self.size):
             self.board.append([])
             for j in range(self.size):

@@ -98,33 +98,6 @@ int main() {
             board[endY][endX] = empty;
             endX = x;
             endY = y;
-            if(sankeSize > 1){
-                printf("%d %d\n", endX,endY);
-                if (direction == right){ 
-                    x = x++;
-                    board[endY][endX-sankeSize+1] = snake;
-                    board[y][endX-sankeSize-1] = empty;
-                }
-                if (direction == left){ 
-                    x = x--;
-                    board[endY][endX+sankeSize-1] = snake;
-                    board[y][endX+sankeSize+1] = empty;
-                 }
-                if (direction == down){ 
-                    y = y--;
-                    board[endY+sankeSize-1][endX] = snake;
-                    board[endY+sankeSize+1][endX] = empty;     
-                }
-                if (direction == up){
-                    y = y--;
-                    board[endY+sankeSize-1][endX] = snake;
-                    board[endY+sankeSize+1][endX] = empty;     
-                }
-                board[y][x] = snake;
-                
-            }else{
-                board[y][x] = snake;//good
-            }
             
         }
     }
