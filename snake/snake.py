@@ -13,6 +13,7 @@ class Game:
             for j in range(self.size):
                 self.board[i].append(0)
         self.foodPos = self.addFood()
+    #done
     def draw(self):
         line = ""
         for i in self.board:
