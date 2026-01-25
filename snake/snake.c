@@ -1,6 +1,7 @@
-#include <inttypes.h>
+# include <inttypes.h>
 # include <stdio.h>
 # include <termios.h>
+# include <unistd.h>
 
 
 enum directions {
@@ -65,42 +66,41 @@ int main() {
     int y;
     while(1)
      {
-        startX = snakePos[0][0];
-        startY = snakePos[0][1];
+        printf("%d\n",keyInput);
+        startX = snakePos[0][1];
+        startY = snakePos[0][0];
        
         board[foodPos[0]][foodPos[1]] = food;
         
-         if((keyInput = getchar()))
-         {
-            //todo add sleep
-            while(a < 1000)
-            {
-                a++;
-            }
-            a=0; 
-            printf("\n");      
-        }
-             for(int i = sizeof(snakePos)/(sizeof(snakePos[0])) - 1; i > 0; i--)
-            {
-                snakePos[i][0] = snakePos[i-1][0];
-                snakePos[i][1] = snakePos[i-1][1];
-            } 
-            
-            board[startX][startY+1] = snake;
-            snakePos[0][0] = startY+1;
-            snakePos[0][1] = startX;
-            for(int i = 0; i < 10; i++){
-                printf("%d ", snakePos[i][0]);
-                printf("%d, ", snakePos[i][1]);
-            }
-            
-            if(keyInput == up){printf("up");}
-            if(keyInput == down){printf("down");}
-            if(keyInput == right){printf("right");}
-            if(keyInput == left){printf("left");}
+        sleep(1);
+
+        keyInput = getchar();
+         
+        
+        //todo add sleep
+        ;
+        a=0; 
+                  
+        
+        for(int i = sizeof(snakePos)/(sizeof(snakePos[0])) - 1; i > 0; i--)
+        {
+            snakePos[i][0] = snakePos[i-1][0];
+            snakePos[i][1] = snakePos[i-1][1];
+        } 
+        
+        board[startX][startY+1] = snake;
+        snakePos[0][0] = startY-1;
+        snakePos[0][1] = startX;
+        
+        
+        if(keyInput == up){printf("up");}
+        if(keyInput == down){printf("down");}
+        if(keyInput == right){printf("right");}
+        if(keyInput == left){printf("left");}
     
 
         draw(board);
+        keyInput = -1;
         
         
     }
