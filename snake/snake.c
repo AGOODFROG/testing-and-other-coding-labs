@@ -57,6 +57,8 @@ int main() {
     int y;
     int snakeSize;
     int keyInput = down;
+    int prevKeyInput = keyInput;
+    int direction = down;
     while(1)
      {
         //printf("%d\n",keyInput);
@@ -67,7 +69,7 @@ int main() {
        
         board[foodPos[0]][foodPos[1]] = food;
         
-       keyInput = getchar();
+        keyInput = getchar();
         sleep(1);
         
         //todo add sleep
