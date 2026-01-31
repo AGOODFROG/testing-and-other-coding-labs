@@ -17,9 +17,24 @@ enum boardStates{
      food
 };
 
-
+int get_char()
+{
+    fd_set rfds;
+    struct timeval tv;
+    int ch = 0;
+    FD_ZERO(&rfds);
+    FD_SET(0, &rfds);
+    tv.tv_sec = 0;
+    tv.tv_usec = 10; 							// Set up waiting time timeout
+	if (select(1, &rfds, NULL, NULL, &tv) > 0)  // Detect whether the keyboard has input
+    {
+        ch = getchar(); 
+    }
+    return ch;
+}
 
 int draw(int board[10][10]){
+    usleep(50000);
     printf("\n");
     for(int i = 0; i < 10;i++ ){
         for(int j = 0; j < 10; j++){
@@ -74,12 +89,23 @@ int main() {
         snakeSize = sizeof(snakePos)/(sizeof(snakePos[0]));
        
         board[foodPos[0]][foodPos[1]] = food;
-        
         prevKeyInput = keyInput;
-        if(1){
+       
+        keyInput = get_char();
+        usleep(500000);
+           
+        
+        a=0;
 
+        if(keyInput > 68 || keyInput < 65){
+            keyInput = prevKeyInput;
         }
-        sleep(1);
+            
+        
+        
+        
+        
+        printf(" key input%d\n",keyInput);
         
         //todo add sleep
       
@@ -126,6 +152,8 @@ int main() {
         
         for(int i = 0; i < 10;i++){ printf("(%d,%d)", snakePos[i][1], snakePos[i][0]);}
         draw(board);
+        
+        
         
 
         
