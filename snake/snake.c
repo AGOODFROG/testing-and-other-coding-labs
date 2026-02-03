@@ -3,7 +3,9 @@
 # include <sys/select.h>
 # include <termios.h>
 # include <unistd.h>
+#include "raylib.h"
 
+int width = 20;
 
 enum directions {
     right = 68,
@@ -33,11 +35,11 @@ int get_char()
     return ch;
 }
 
-int draw(int board[10][10]){
+int draw(int board[width][width]){
     usleep(50000);
     printf("\n");
-    for(int i = 0; i < 10;i++ ){
-        for(int j = 0; j < 10; j++){
+    for(int i = 0; i < width;i++ ){
+        for(int j = 0; j < width; j++){
             printf("%d ", board[i][j]);
         }     
         printf("\n");
@@ -51,6 +53,7 @@ int draw(int board[10][10]){
 
 int main() {
     //set up input
+    
     struct termios info;
     tcgetattr(0, &info);
     info.c_lflag &= ~ICANON;
@@ -59,14 +62,16 @@ int main() {
     tcsetattr(0, TCSANOW, &info);
     
     // game stuff
-    int snakePos[100][2] = {{1,1}};
-    int board[10][10];
+    int snakePos[(width*width)][2] = {};
+    snakePos[0][0] = 1;
+    snakePos[0][1] = 1;
+    int board[width][width];
     
     int foodPos[2] = {3,5};
     int eaten = 0;
 
-    for(int i = 0; i < 10;i++ ){
-        for(int j = 0; j < 10; j++){
+    for(int i = 0; i < width;i++ ){
+        for(int j = 0; j < width; j++){
             board[i][j] = 0;
         }       
     }
@@ -150,7 +155,7 @@ int main() {
         
             
         
-        for(int i = 0; i < 10;i++){ printf("(%d,%d)", snakePos[i][1], snakePos[i][0]);}
+        for(int i = 0; i < width;i++){ printf("(%d,%d)", snakePos[i][1], snakePos[i][0]);}
         draw(board);
         
         
